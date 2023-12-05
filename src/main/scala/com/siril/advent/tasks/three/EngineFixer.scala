@@ -4,7 +4,7 @@ import com.siril.advent.tasks.Task
 
 import scala.collection.mutable.ArrayBuffer
 
-class EngineFixer extends Task[Array[Array[Char]], Int] {
+object EngineFixer extends Task[Array[Array[Char]], Int] {
   private val digits = "0123456789".toCharArray.toSet
 
   override def apply(matrix: Array[Array[Char]]): Int =
@@ -73,4 +73,7 @@ class EngineFixer extends Task[Array[Array[Char]], Int] {
       (row <= rowIndex + 1 && row >= rowIndex - 1) && (col >= startIndex - 1 && col <= endIndex + 1)
   }
 
+  override def parseInput(raw: List[String]): Array[Array[Char]] = raw.map(_.toCharArray).toArray
+
+  override def subDir: String = "three"
 }

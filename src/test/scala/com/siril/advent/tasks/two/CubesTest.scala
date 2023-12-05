@@ -9,16 +9,16 @@ class CubesTest extends Specification {
 
   "Cubes" should {
     "calculate test set" in new Ctx {
-      cubes.apply(InputReader.readTaskTwo("test.txt")) must beEqualTo(8)
+      cubes.apply(InputReader.readLines("test.txt", cubes)) must beEqualTo(8)
     }
     "calculate inputA set" in new Ctx {
-      cubes.apply(InputReader.readTaskTwo("inputA.txt")) must beEqualTo(2406)
+      cubes.apply(InputReader.readLines("inputA.txt", cubes)) must beEqualTo(2406)
     }
-    "maxByColors test set"in new Ctx {
-      cubes.maxByColors(InputReader.readTaskTwo("test.txt")) must beEqualTo(2286)
+    "maxByColors test set" in new Ctx {
+      cubes.maxByColors(InputReader.readLines("test.txt", cubes)) must beEqualTo(2286)
     }
     "maxByColors inputA set" in new Ctx {
-      cubes.maxByColors(InputReader.readTaskTwo("inputA.txt")) must beEqualTo(78375)
+      cubes.maxByColors(InputReader.readLines("inputA.txt", cubes)) must beEqualTo(78375)
     }
   }
 
