@@ -5,21 +5,18 @@ import com.siril.advent.tasks.Task
 import scala.collection.mutable.ArrayBuffer
 
 object AlmanacProcessor extends Task[Almanac, Long] {
-  override def apply(almanach: Almanac): Long =
-    calc(almanach.seeds, almanach.mappings)
-
-  private def calc(seeds: Array[Long], mappings: Array[Mapping]) =
-    seeds.map { seed =>
+  override def solve(almanac: Almanac): Long =
+    almanac.seeds.map { seed =>
       var lastId = seed
-      mappings.foreach(map => lastId = map.findCorrespondingDest(lastId))
+      almanac.mappings.foreach(map => lastId = map.findCorrespondingDest(lastId))
       lastId
     }.min
 
-  def calcSeedRanges(almanach: Almanac): Long = {
-    val ranges = almanach.seeds.grouped(2).map(a => a.head -> (a.head + a(1))).toArray
-    val transformed = ranges.flatMap { range =>
+  override def solveAdvanced(almanac: Almanac): Long = {
+    val seedRanges = almanac.seeds.grouped(2).map(a => a.head -> (a.head + a(1))).toArray
+    val transformed = seedRanges.flatMap { range =>
       var lastRanges = Array(range)
-      almanach.mappings.foreach(mapping => lastRanges = lastRanges.flatMap(mapping.findCorrespondingDestRange))
+      almanac.mappings.foreach(mapping => lastRanges = lastRanges.flatMap(mapping.findCorrespondingDestRange))
       lastRanges
     }
     transformed.foldLeft(Long.MaxValue)((acc, range) => Math.min(range._1, acc))

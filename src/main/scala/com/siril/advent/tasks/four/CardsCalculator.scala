@@ -6,12 +6,12 @@ import java.util.regex.Pattern
 import scala.collection.mutable.ArrayBuffer
 
 object CardsCalculator extends Task[Array[Card], Int] {
-  override def apply(cards: Array[Card]): Int =
+  override def solve(cards: Array[Card]): Int =
     cards.filter(_.intersect.nonEmpty).map(card =>
       Math.pow(2, card.intersect.size - 1).toInt
     ).sum
 
-  def calcIncludingCopies(input: Array[Card]): Int = {
+  override def solveAdvanced(input: Array[Card]): Int = {
     val cards = new ArrayBuffer() ++ input.map(c => c -> 1)
     for (index <- cards.indices) {
       val (card, quantity) = cards(index)

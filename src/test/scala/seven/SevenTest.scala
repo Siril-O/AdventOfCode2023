@@ -1,26 +1,28 @@
-package com.siril.advent.tasks.five
+package seven
 
 import com.siril.advent.tasks.TestCtx
+import com.siril.advent.tasks.seven.Seven
+import com.siril.advent.tasks.seven.SevenF.{Input, Output}
 import org.specs2.mutable.Specification
 
-class AlmanacProcessorTest extends Specification {
+class SevenTest extends Specification {
 
-  "AlmanacProcessor" should {
+  "Seven" should {
     "solve test input" in new Ctx {
       instance.solve(testInput) must beEqualTo(35)
     }
     "solve task input" in new Ctx {
       instance.solve(taskInput) must beEqualTo(173706076)
     }
-    "solve advanced test" in new Ctx {
+    "solve advanced test input" in new Ctx {
       instance.solveAdvanced(testInput) must beEqualTo(46)
     }
-    "solve advanced task" in new Ctx {
+    "solve advanced task input" in new Ctx {
       instance.solveAdvanced(taskInput) must beEqualTo(11611182)
     }
   }
 
-  trait Ctx extends TestCtx[Almanac, Long] {
-    override def instance: AlmanacProcessor.type = AlmanacProcessor
+  trait Ctx extends TestCtx[Input, Output] {
+    override def instance: Seven.type = Seven
   }
 }

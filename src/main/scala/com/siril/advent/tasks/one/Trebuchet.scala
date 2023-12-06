@@ -11,10 +11,10 @@ object Trebuchet extends Task[List[String], Int] {
   private val reverseLetterRegexp = "(enin|thgie|neves|xis|evif|ruof|eerht|owt|eno|[0-9])".r
 
 
-  override def apply(lines: List[String]): Int =
+  override def solve(lines: List[String]): Int =
     processLines(lines, includeWrittenDigits = false).sum
 
-  def applyWithWrittenDigits(lines: List[String]): Int =
+  override def solveAdvanced(lines: List[String]): Int =
     processLines(lines, includeWrittenDigits = true).sum
 
   def processLines(lines: List[String], includeWrittenDigits: Boolean): List[Int] =

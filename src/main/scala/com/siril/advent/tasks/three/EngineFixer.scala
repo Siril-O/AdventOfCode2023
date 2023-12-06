@@ -7,10 +7,10 @@ import scala.collection.mutable.ArrayBuffer
 object EngineFixer extends Task[Array[Array[Char]], Int] {
   private val digits = "0123456789".toCharArray.toSet
 
-  override def apply(matrix: Array[Array[Char]]): Int =
+  override def solve(matrix: Array[Array[Char]]): Int =
     findNumbers(matrix).filter(_.hasAdjacentSymbols(matrix)).map(_.value).sum
 
-  def calculateGearRatio(matrix: Array[Array[Char]]): Int = {
+  override def solveAdvanced(matrix: Array[Array[Char]]): Int = {
     val numbers = findNumbers(matrix).groupBy(_.rowIndex)
     val asteriskCoords = matrix.zipWithIndex.collect {
       case (row, index) =>
