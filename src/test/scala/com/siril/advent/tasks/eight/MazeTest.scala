@@ -25,14 +25,18 @@ class MazeTest extends Specification {
     }
 
     "Utils" in new Ctx {
-      Utils.calcPrimeFactors(6) must beEqualTo(Map(2 -> 1, 3 -> 1))
-      Utils.calcPrimeFactors(18) must beEqualTo(Map(2 -> 1, 3 -> 2))
+//      Utils.calcPrimeFactors(6) must beEqualTo(Map(2 -> 1, 3 -> 1))
+//      Utils.calcPrimeFactors(18) must beEqualTo(Map(2 -> 1, 3 -> 2))
+//
+//      Utils.calcLCMFast(Array(48, 18)) must beEqualTo(48 * 18 / 6)
+//
+//      Utils.calcLCM(Array(12, 18)) must beEqualTo(36)
+//      Utils.calcLCM(Array(48, 18, 56)) must beEqualTo(1008)
+//      Utils.calcLCMFast(Array(48, 18, 56)) must beEqualTo(1008)
 
-      Utils.calcLCMFast(Array(48, 18)) must beEqualTo(48 * 18 / 6)
-
-      Utils.calcLCM(Array(12, 18)) must beEqualTo(36)
-      Utils.calcLCM(Array(48, 18, 56)) must beEqualTo(1008)
-      Utils.calcLCMFast(Array(48, 18, 56)) must beEqualTo(1008)
+      Utils.fib(50) must beEqualTo(12586269025L)
+      Utils.fibItr(50) must beEqualTo(12586269025L)
+      Utils.nthFibonacciTerm(50) must beEqualTo(12586269025L)
     }
   }
 

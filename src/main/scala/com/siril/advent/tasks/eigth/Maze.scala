@@ -90,7 +90,7 @@ object Utils {
     maxPowers.map { case (factor, power) => Math.pow(factor, power) }.product.toLong
   }
 
-  def calcLCMFast(numbers: Array[Long]): Long = 
+  def calcLCMFast(numbers: Array[Long]): Long =
     numbers.reduce((a, b) => (a * b) / gcd(a, b))
 
 
@@ -114,6 +114,35 @@ object Utils {
       val smallerValue = Math.min(a, b)
       gcd(biggerValue % smallerValue, smallerValue);
     }
+
+  def fib(number: Long): Long = {
+    @tailrec
+    def fibTR(n: Long, a: Long, b: Long): Long =
+      if (n == 0) a else fibTR(n - 1, b, a + b)
+
+    fibTR(number, 0, 1)
+  }
+
+  def fibItr(number: Long): Long = {
+    var a = 0L
+    var b = 1L
+    for (_ <- (0L until number)) {
+      val tmp = b
+      b = a + b
+      a = tmp
+    }
+    a
+  }
+
+  def nthFibonacciTerm(n: Long) = {
+    val squareRootOf5 = Math.sqrt(5)
+    val phi = (1 + squareRootOf5) / 2
+    ((Math.pow(phi, n) - Math.pow(-phi, -n)) / squareRootOf5).toLong
+  }
+
+  def fibStupid(n: Long): Long =
+    if (n == 0 || n == 1) n else fibStupid(n - 1) + fibStupid(n - 2)
+
 
 }
 
