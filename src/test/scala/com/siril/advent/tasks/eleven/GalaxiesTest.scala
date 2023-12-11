@@ -12,10 +12,10 @@ class GalaxiesTest extends Specification {
       instance.solve(taskInput) must beEqualTo(10292708)
     }
     "solve advanced test input" in new Ctx {
-      instance.solveAdvanced(testInput) must beEqualTo(2)
+      instance.solveAdvanced(testInput) must beEqualTo(82000210)
     }
     "solve advanced task input" in new Ctx {
-      instance.solveAdvanced(taskInput) must beEqualTo(1112)
+      instance.solveAdvanced(taskInput) must beEqualTo(790194712336L)
     }
   }
 
