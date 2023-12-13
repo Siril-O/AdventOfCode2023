@@ -1,6 +1,7 @@
 package com.siril.advent.tasks.twelve
 
 import com.siril.advent.tasks.Task
+import com.siril.advent.tasks.eigth.Utils.insertInArray
 
 import scala.collection.mutable
 
@@ -85,14 +86,11 @@ object Springs extends Task[Array[Line], Long] {
     }
 
     def f(statuses: Array[Char], sequence: Array[Int], i: Int): Long = {
-      if (i == statuses.length) {
+      if (i == statuses.length)
         if (isValid(statuses, sequence)) 1 else 0
-      }
-      else if (statuses(i) == '?') {
-        val one = (statuses.take(i) :+ '#') ++ statuses.drop(i + 1)
-        val two = (statuses.take(i) :+ '.') ++ statuses.drop(i + 1)
-        f(one, sequence, i + 1) + f(two, sequence, i + 1)
-      } else
+      else if (statuses(i) == '?')
+        f(insertInArray(statuses, i, '#'), sequence, i + 1) + f(insertInArray(statuses, i, '.'), sequence, i + 1)
+      else
         f(statuses, sequence, i + 1)
     }
 

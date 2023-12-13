@@ -5,6 +5,7 @@ import com.siril.advent.tasks.Task
 import scala.annotation.tailrec
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
+import scala.reflect.ClassTag
 
 object MazeNavigator extends Task[Maze, Long] {
   override def solve(maze: Maze): Long = {
@@ -83,6 +84,9 @@ case class Maze(
 
 
 object Utils {
+
+  def insertInArray[T: ClassTag](arr: Array[T], index: Int, newElement: T): Array[T] =
+    (arr.take(index) :+ newElement) ++ arr.drop(index + 1)
 
   def calcLCM(numbers: Array[Long]): Long = {
     val factors = numbers.map(calcPrimeFactors).flatMap(_.toSeq)
