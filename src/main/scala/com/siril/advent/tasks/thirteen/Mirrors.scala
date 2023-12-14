@@ -1,7 +1,7 @@
 package com.siril.advent.tasks.thirteen
 
 import com.siril.advent.tasks.Task
-import com.siril.advent.tasks.eigth.Utils.insertInArray
+import com.siril.advent.tasks.eigth.Utils.{flipMatrix, insertInArray}
 
 import scala.collection.mutable.ArrayBuffer
 
@@ -28,20 +28,6 @@ object Mirrors extends Task[Array[Array[Array[Char]]], Long] {
 
   private def findReflectionVertical(input: Array[Array[Char]], excludeIndex: Int = -1): Option[Int] =
     findReflection(flipMatrix(input).map(_.mkString), excludeIndex)
-
-
-  private def flipMatrix(input: Array[Array[Char]]) = {
-    val cols = ArrayBuffer[ArrayBuffer[Char]](input.head.indices.map(_ => new ArrayBuffer[Char]()): _*)
-    for (row <- input.indices) {
-      for (col <- input(row).indices) {
-        if (col >= cols.length) {
-          println(input.map(_.mkString).mkString("\n"))
-        }
-        cols(col).addOne(input(row)(col))
-      }
-    }
-    cols.map(_.toArray).toArray
-  }
 
   private def solveForSingleInput(input: Array[Array[Char]]): Int =
     findReflectionHorizontal(input).map(h => h * 100).orElse(findReflectionVertical(input)).get

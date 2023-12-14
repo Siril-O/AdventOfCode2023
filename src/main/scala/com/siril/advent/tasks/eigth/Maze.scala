@@ -88,6 +88,24 @@ object Utils {
   def insertInArray[T: ClassTag](arr: Array[T], index: Int, newElement: T): Array[T] =
     (arr.take(index) :+ newElement) ++ arr.drop(index + 1)
 
+  /*
+      12  ->  135
+      34      246
+      56
+   */
+  def flipMatrix(input: Array[Array[Char]]) = {
+    val cols = ArrayBuffer[ArrayBuffer[Char]](input.head.indices.map(_ => new ArrayBuffer[Char]()): _*)
+    for (row <- input.indices) {
+      for (col <- input(row).indices) {
+        if (col >= cols.length) {
+          println(input.map(_.mkString).mkString("\n"))
+        }
+        cols(col).addOne(input(row)(col))
+      }
+    }
+    cols.map(_.toArray).toArray
+  }
+
   def calcLCM(numbers: Array[Long]): Long = {
     val factors = numbers.map(calcPrimeFactors).flatMap(_.toSeq)
     val maxPowers = factors.groupBy(_._1).map { case (factor, powers) => factor -> powers.map(_._2).max }
