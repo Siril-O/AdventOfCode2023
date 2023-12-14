@@ -2,6 +2,7 @@ package com.siril.advent.tasks.fourteen
 
 import com.siril.advent.tasks.Task
 
+import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
 import scala.reflect.ClassTag
 
@@ -9,20 +10,57 @@ import scala.reflect.ClassTag
 object Boulders extends Task[Array[Array[Char]], Long] {
 
   private val boulderSymbol = 'O'
+
   override def solve(input: Array[Array[Char]]): Long = {
     val boulders: ArrayBuffer[ArrayBuffer[Char]] = ArrayBuffer(input.map(ArrayBuffer(_: _*)): _*)
     boulders.head.indices.foreach(moveBouldersUp(boulders, _))
-    callBouldersWeight(boulders)
+    calcBouldersWeight(boulders)
   }
 
-  override def solveAdvanced(input: Array[Array[Char]]): Long = {
+  private val cache: mutable.Map[String, String] = mutable.Map.empty
+
+  private def solveAdv(input: Array[Array[Char]]): Long = {
+    cache.clear()
+    def move(i: String): String = {
+      if (cache.contains(i)) cache(i)
+      else {
+        val boulders: ArrayBuffer[ArrayBuffer[Char]] = ArrayBuffer(i.split("\n").map(v => ArrayBuffer(v.toCharArray: _*)): _*)
+        boulders.head.indices.foreach(moveBouldersUp(boulders, _))
+        boulders.foreach(moveBouldersLeft)
+        boulders.head.indices.foreach(moveBouldersDown(boulders, _))
+        boulders.foreach(moveBouldersRight)
+        val res = boulders.map(_.mkString).mkString("\n").intern
+        cache.put(i, res)
+        res
+      }
+    }
+
+    val cycles = 1000000000
+    var array = input.map(_.mkString).mkString("\n")
+    var iteration = 0
+    while (iteration < cycles) {
+      if ((iteration % 100000) == 0) {
+        println(iteration)
+      }
+      array = move(array)
+      iteration = iteration + 1
+    }
+
+    calcBouldersWeight(ArrayBuffer(array.split("\n").map(v => ArrayBuffer(v.toCharArray: _*)): _*))
+  }
+
+  override def solveAdvanced(input: Array[Array[Char]]): Long =
+  //    solveAdvancedViaSubSequence(input)
+    solveAdv(input)
+
+  private def solveAdvancedViaSubSequence(input: Array[Array[Char]]) = {
     val boulders: ArrayBuffer[ArrayBuffer[Char]] = ArrayBuffer(input.map(ArrayBuffer(_: _*)): _*)
     val cycles = 1000000000
     val sequenceToFindLcs = 500
     val weights = new ArrayBuffer[Int]()
     (0 until sequenceToFindLcs).foreach { _ =>
       moveCycle(boulders)
-      weights.addOne(callBouldersWeight(boulders))
+      weights.addOne(calcBouldersWeight(boulders))
     }
 
     val (start, end) = findFirstRepeatableSubSequence(weights.toArray).get
@@ -49,7 +87,8 @@ object Boulders extends Task[Array[Array[Char]], Long] {
     }
     result
   }
-  private def callBouldersWeight(boulders: ArrayBuffer[ArrayBuffer[Char]]): Int =
+
+  private def calcBouldersWeight(boulders: ArrayBuffer[ArrayBuffer[Char]]): Int =
     boulders.zip((1 to boulders.length).reverse).map(v =>
       v._1.map(c => if (c == boulderSymbol) v._2 else 0)
     ).map(_.sum).sum

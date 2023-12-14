@@ -4,6 +4,7 @@ import com.siril.advent.tasks.TestCtx
 import org.specs2.mutable.Specification
 
 class BouldersTest extends Specification {
+  sequential
   "Boulders" should {
     "solve test input" in new Ctx {
       instance.solve(testInput) must beEqualTo(136)
@@ -11,11 +12,9 @@ class BouldersTest extends Specification {
     "solve task input" in new Ctx {
       instance.solve(taskInput) must beEqualTo(106990)
     }
-
     "solve advanced test input" in new Ctx {
       instance.solveAdvanced(testInput) must beEqualTo(64)
     }
-
     "solve advanced task input" in new Ctx {
       instance.solveAdvanced(taskInput) must beEqualTo(100531)
     }
